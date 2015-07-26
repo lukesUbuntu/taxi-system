@@ -1,0 +1,94 @@
+
+<?php echo $this->getContent() ?>
+
+<div align="right">
+    <?php echo $this->tag->linkTo(array("registrations/new", "Create registrations")) ?>
+</div>
+
+<?php echo $this->tag->form(array("registrations/search", "autocomplete" => "off")) ?>
+
+<div align="center">
+    <h1>Search registrations</h1>
+</div>
+
+<table>
+    <tr>
+        <td align="right">
+            <label for="record_id">Record</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("record_id", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="REG">REG</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("REG", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="ATO">ATO</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("ATO", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="Decal">Decal</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("Decal", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="Year">Year</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("Year", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="Make">Make</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("Make", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="Model">Model</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("Model", "size" => 30)) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="Fleet">Fleet</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("Fleet", "type" => "number")) ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="ServiceType">ServiceType</label>
+        </td>
+        <td align="left">
+            <?php echo $this->tag->textField(array("ServiceType", "size" => 30)) ?>
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td><?php echo $this->tag->submitButton("Search") ?></td>
+    </tr>
+</table>
+
+</form>

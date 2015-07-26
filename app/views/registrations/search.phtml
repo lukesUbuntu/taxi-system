@@ -1,0 +1,62 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("registrations/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("registrations/new", "Create ")); ?>
+        </td>
+    </tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Record</th>
+            <th>REG</th>
+            <th>ATO</th>
+            <th>Decal</th>
+            <th>Year</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Fleet</th>
+            <th>ServiceType</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $registration) { ?>
+        <tr>
+            <td><?php echo $registration->record_id ?></td>
+            <td><?php echo $registration->REG ?></td>
+            <td><?php echo $registration->ATO ?></td>
+            <td><?php echo $registration->Decal ?></td>
+            <td><?php echo $registration->Year ?></td>
+            <td><?php echo $registration->Make ?></td>
+            <td><?php echo $registration->Model ?></td>
+            <td><?php echo $registration->Fleet ?></td>
+            <td><?php echo $registration->ServiceType ?></td>
+            <td><?php echo $this->tag->linkTo(array("registrations/edit/" . $registration->record_id, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("registrations/delete/" . $registration->record_id, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("registrations/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("registrations/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("registrations/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("registrations/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

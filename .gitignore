@@ -1,6 +1,7 @@
 # phalcon framework ignore
 /cache/
 /config/development/
+app/cache/
 
 # php storm
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
