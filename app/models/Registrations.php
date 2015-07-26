@@ -57,4 +57,27 @@ class Registrations extends \Phalcon\Mvc\Model
      */
     public $ServiceType;
 
+    /**
+     * Returns a formatted array of the taxi data
+     * @return array
+     */
+    public function Details(){
+        $record = array(
+            'id'        =>  $this->record_id,
+            'decal'     =>  $this->Decal,
+            'service'   =>  $this->ServiceType,
+            'fleet'     =>  $this->Fleet,
+            'ato'       =>  $this->ATO,
+            //vehicle details
+            'vehicle' => array(
+                    'make'  => $this->Make,
+                    'model' => $this->Model,
+                    'year'  => $this->Year
+            )
+        );
+
+        return $record;
+    }
+
+
 }
