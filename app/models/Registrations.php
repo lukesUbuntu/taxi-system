@@ -72,7 +72,8 @@ class Registrations extends \Phalcon\Mvc\Model
             'vehicle' => array(
                     'make'  => $this->Make,
                     'model' => $this->Model,
-                    'year'  => $this->Year
+                    'year'  => $this->Year,
+                    'reg'  => $this->REG
             )
         );
 

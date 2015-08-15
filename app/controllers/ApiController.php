@@ -4,6 +4,7 @@
  * User: Luke Hardiman
  * Date: 26/06/2015
  * Time: 3:30 PM
+ * @description API Controller to handle all api calls and data
  */
 
 use Phalcon\Mvc\Model\Criteria;
@@ -20,12 +21,39 @@ class ApiController extends JSONController
     }
 
     /**
-     * @call api/getRegistration
+     * PlaceHoder for AuthAction non working
+     */
+    public function authAction(){
+
+        if (!$this->request->isGet())
+            $this->response("incorrect request type",false);
+
+        //get username if not null
+        $username = $this->request->get("username",null,false);
+        $password = $this->request->get("password",null,false);
+
+        if (!$username)
+            $this->response("missing username",false);
+
+        if (!$password)
+            $this->response("missing password",false);
+
+        if ($username == "tester" && $password == "tester"){
+            $response['api_key'] = "dfsjkdfsjhdfsshit";
+            $this->response($response);
+        }else{
+            $this->response("Failed login",false);
+        }
+
+
+    }
+    /**
+     * @call api/getDetails
      * @param  ?reg | Vehicle Registration
      * @type GET request (will be moved to POST after testing)
      * @return JSON data of taxi registration
      */
-    public function getRegistrationAction(){
+    public function getDetailsAction(){
 
         if (!$this->request->isGet())
             $this->response("incorrect request type",false);
@@ -38,13 +66,20 @@ class ApiController extends JSONController
 
         //get taxi record
         $taxi = Registrations::query()
-            ->where("REG = :REG:")
-            ->bind(array("REG" => $taxi_reg))
+            ->where("REG LIKE :REG:")
+            ->bind(array("REG" => "$taxi_reg%"))
             ->execute();
 
         //process if we have result
-        if (count($taxi) > 0)
-            $this->response($taxi[0]->Details());
+
+        if (count($taxi) > 0){
+            $taxis = array();
+            foreach($taxi as $taxiDriver)
+                $taxis[] = $taxiDriver->Details();
+
+            $this->response($taxis);
+        }
+
         else
             $this->response("no results",false);
     }
@@ -67,11 +102,16 @@ class ApiController extends JSONController
      * @param int $status_code of response default 200
      * @param string $status_message of response default OK
      */
-    public function response($data, $success = true, $status_code = 200 , $status_message = "OK"){
+    private function response($data, $success = true, $status_code = 200 , $status_message = "OK"){
         //disable view
         $this->view->disable();
         //new response
         $response = new \Phalcon\Http\Response();
+        //cross dom headers
+        $response->setHeader('Access-Control-Allow-Origin', '*');
+        $response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
+        $response->sendHeaders();
+
         $response->setStatusCode($status_code, $status_message);
         $response->setContentType('application/json', 'utf-8');
         //encode call
