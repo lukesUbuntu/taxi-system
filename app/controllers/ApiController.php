@@ -74,8 +74,11 @@ class ApiController extends JSONController
 
         if (count($taxi) > 0){
             $taxis = array();
-            foreach($taxi as $taxiDriver)
-                $taxis[] = $taxiDriver->Details();
+            foreach($taxi as $taxiDriver){
+                $details = $taxiDriver->Details();
+                $taxis[$details['id']] = $details;
+            }
+
 
             $this->response($taxis);
         }
