@@ -47,6 +47,33 @@ class ApiController extends JSONController
 
 
     }
+
+    /**
+     * @call api/saveDetails
+     * @param  ?taxi | taxiObject
+     * @type GET request (will be moved to POST after testing)
+     * @return JSON data of taxi registration
+     */
+    public function saveDetailsAction(){
+        if (!$this->request->isGet())
+            $this->response("incorrect request type",false);
+
+        //get taxiObject if not null
+        $taxi = $this->request->get("taxi",null,false);
+
+        if (!$taxi)
+            $this->response("missing taxi object",false);
+
+       $taxiObject = json_decode($taxi);
+        if (!$taxiObject)
+        $this->response("Failed to update",false);
+
+
+        $taxi = Registrations::findFirst($taxiObject->id);
+        $taxi->UpdateDetails($taxiObject);
+        $taxi->save();
+        $this->response("updated",true);
+    }
     /**
      * @call api/getDetails
      * @param  ?reg | Vehicle Registration
